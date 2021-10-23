@@ -1,0 +1,20 @@
+body{
+    background-color: #202124;
+    color: white;
+    font-size: 20px;
+}
+
+.texto {
+    color: rgb(81, 81, 253);
+    display: flex;
+    flex-direction:flex;
+    justify-content: center;
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+.scanner{
+    border-top: solid 1px skyblue;
+    margin: 6px;
+}
