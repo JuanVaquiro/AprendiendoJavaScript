@@ -69,7 +69,9 @@ document.write(restltado);
 
 name1 = "juan david";
 if (name1 == "juan") {
-    alert("hola");
+    alert("hola" + name1);
 } else if (name1 == "juan david") {
     alert ("tu nombre es " + name1) 
+} else {
+    alert("tu nombre es otro");
 }

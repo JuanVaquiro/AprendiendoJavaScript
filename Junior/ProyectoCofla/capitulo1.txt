@@ -1,0 +1,24 @@
+1) 3 chicos de 23 años perfectamtne normales enta una
+heladeria a comprar un heladao pero hay un problema: los precios no
+estab al lado de cada estante con su respectivo helado.
+Ellos quieren comprar el helado más caro que puedan con la plata que tiene,
+asi que ... vemoas como podemos ayudarlos.
+
+Roberto tiene $1.5 USD 
+Pedro tiene $1.5 USD
+Colfa tiene $3 USD 
+
+Los precios de helados son los siguientes;
+Palito de helado agua: $0.6 USD
+Palito de helado crema: $1.6 USD
+Bombón helado Heladix: $1.6 USD
+Bombón de helado Heladovich: $1.7 USD
+Bombón de helado Helardo: $1.8 USD
+Potecito de helado confetis: $2.9 USD
+Pote de 1/4 KG: 2.9 USD
+
+    CREAR SOLUCIONES:
+     -Perdirles que ingren el monto que tiene y mostrar el helado
+     -Si hay 2 o más con el mismo precio, mostrar ámbos
+     -Colfa quieren saber cuanto es el vuelto
+
