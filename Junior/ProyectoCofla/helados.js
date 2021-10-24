@@ -1,7 +1,7 @@
 //ingresar datos
-dineroCofla = prompt("cuanto dinero tienes Cofla");
-dineroRoberto = prompt("cuanto dinero tienes Roberto");
-dineroPedro = prompt("cuanto dinero tienes Pedro");
+let dineroCofla = prompt("cuanto dinero tienes Cofla");
+let dineroRoberto = prompt("cuanto dinero tienes Roberto");
+let dineroPedro = prompt("cuanto dinero tienes Pedro");
 
 //convertir el dato String en un dato Entero (Funcion)
 dineroCofla = parseInt(dineroCofla);
