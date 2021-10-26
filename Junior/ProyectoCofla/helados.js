@@ -35,3 +35,6 @@ else if ( dineroCofla >= 1.8 && dineroCofla < 2.9 ){
 else {
     alert( "Lo sentimos No tienes saldo Suficiente" );
 }
+
+
+//version mejorada  de codigo 
