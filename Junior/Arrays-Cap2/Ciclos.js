@@ -74,14 +74,18 @@ for (animal of animales) {
 
 document.write("<div class=scanner>Label :</div>");
 Array1 = ["maria", "jose", "juan"];
-Array2 = ["pedro", "marcelo", Array1];
+Array2 = ["pedro", "marcelo", Array1, "sara"];
 
-for (let array in Array2) {
-    if (array == 2){
-        for(let array of Array1){
+forLabel:  // sentencia label: indica el for padre
+for (let array in Array2) {        // recorrer las posiciones del Array2
+    if (array == 2){               // si esta en la posicion 2 => ejecute el sig for
+        for(let array of Array1){  // recorrer los elementos del Array1
+            //  continue forLabel; // salta la interacon del for hija y continua el for padre
+            //  break forLabel;    // termina la iteracion del for padre
+             break;                // termina la iteracio del for hijo
             document.write(array + "<br>");
         }
     }else {
-        document.write(Array2[array] + "<br>");
+         document.write(Array2[array] + "<br>");
     }
 }

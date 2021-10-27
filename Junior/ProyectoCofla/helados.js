@@ -38,3 +38,19 @@ else {
 
 
 //version mejorada  de codigo 
+
+const definirCompra = (n) => {
+    let dinero = prompt (`Dinero de ${n}`);
+    if ( dinero >= 0.6 && dinero < 1   ) return ( `${n}: helado de agua` );
+    if ( dinero >= 1   && dinero < 1.6 ) return ( `${n}: helado de crema` );
+    if ( dinero >= 1.6 && dinero < 1.7 ) return ( `${n}: helado de heladix` );
+    if ( dinero >= 1.7 && dinero < 1.8 ) return ( `${n}: helado de heladovich` );
+    if ( dinero >= 1.8 && dinero < 2.9 ) return ( `${n}: helado de helardo` );
+    if ( dinero >= 2.9 && dinero < 1   ) return ( `${n}: helado de confites o pote` );
+    else return 
+    ( `${n}: Dinero insuficiente` );
+}
+
+console.log(definirCompra("Cofla"));
+console.log(definirCompra("Pedro"));
+console.log(definirCompra("Roberto"));
