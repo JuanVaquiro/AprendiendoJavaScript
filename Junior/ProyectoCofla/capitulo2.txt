@@ -7,3 +7,19 @@ cosas
 
 -dejar pasar solo los mayores de dad
 -la primera pesona que entre despues de las 2am, no paga
+
+
+B) Colfa vuelve de la comisaria exausto y duerme. en su curos
+en total son 19 alumnos, pero surgio un problema en el sistema
+de registro de asistencias y durante  los proximos 30dias no
+se podran hacer registro de datos de ningun tipo, por ende las clases
+no pdran comenzar asta que esto se solucione.
+
+  -crear un mini-sistmea que nos permita registar los alumnos
+  que esten presente (P) y ausentes (A) en clases
+
+  -pasado los 30 dias mostrar la siutacion final de todos los almunos
+  (Numero total de presente y ausentes)
+
+  -se puede tener maximo de 10% de ausencias por semestre, si se tiene
+  más ausencias queda reprobado
