@@ -8,7 +8,7 @@ for (let i = 0; i < cantidad; i++){
 const tomarAsistencias = (nombre, p) => {
        let presencia = prompt(nombre);
        if(presencia == "p" ){
-           alumnosTotales[i][1] ++ ;
+           alumnosTotales[p][1] ++ ;
        } 
 }  
 
@@ -19,7 +19,13 @@ for (i = 0; i < 30; i++) {
 }
 
 for (alumno in alumnosTotales) {
-    let resultado = `${alumnosTotales[almuno][0]} : <br>
-    _______ Presentes: ${alumnosTotales[alumno][1]} <br>
-    _______ Ausencias: `
+    let resultado = `${alumnosTotales[alumno][0]} : <br>
+    _______ Presentes: <b>${alumnosTotales[alumno][1]} </b><br>
+    _______ Ausencias: <b>${30 - alumnosTotales[alumno][1]}</b>`;
+    if (30 - alumnosTotales[alumno][1] > 18) {
+        resultado += "<b style='color:red'> REPORBADO POR INACISTESCIAS </b><br><br>";    
+    } else {
+        resultado += "<br><br>";
+    }
+    document.write(resultado);
 }
