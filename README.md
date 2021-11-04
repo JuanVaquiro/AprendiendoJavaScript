@@ -5,3 +5,5 @@ MIS APUNTES DE : Este es el curso de javascript desde cero a experto que vas a t
 
 Nota:
 Este Comentario llego a través de un fork
+
+Comentario por Pedro Sanchez, de un fork 
