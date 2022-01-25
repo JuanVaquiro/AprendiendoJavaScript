@@ -2,21 +2,24 @@ let cantidad = prompt("¿cuantos alumnos son?");
 let alumnosTotales = [] ;
 
 for (let i = 0; i < cantidad; i++){
-    alumnosTotales[i] = [prompt("nombre del alumno " + (i+1)), 0];
+    alumnosTotales[i] = [prompt("nombre del alumno " + (i+1)),  0];
 }   
+
 
 const tomarAsistencias = (nombre, p) => {
        let presencia = prompt(nombre);
        if(presencia == "p" ){
            alumnosTotales[p][1] ++ ;
-       } 
-}  
+       };
+       console.log(alumnosTotales);
+};
+
 
 for (i = 0; i < 30; i++) {
     for (let alumno in alumnosTotales){
         tomarAsistencias(alumnosTotales[alumno][0], alumno);    
-    }
-}
+    };
+};
 
 for (alumno in alumnosTotales) {
     let resultado = `${alumnosTotales[alumno][0]} : <br>
@@ -26,6 +29,6 @@ for (alumno in alumnosTotales) {
         resultado += "<b style='color:red'> REPORBADO POR INACISTESCIAS </b><br><br>";    
     } else {
         resultado += "<br><br>";
-    }
+    };
     document.write(resultado);
-}
+};
