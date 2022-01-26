@@ -1,7 +1,8 @@
 body{
     background-color: #202124;
     color: white;
-    font-size: 20px;
+    font-size: 16px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .texto {
@@ -17,4 +18,8 @@ body{
 .scanner{
     border-top: solid 1px skyblue;
     margin: 6px;
+}
+
+.caja{
+    color: aquamarine;
 }
