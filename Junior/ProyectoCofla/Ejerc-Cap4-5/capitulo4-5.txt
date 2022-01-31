@@ -1,0 +1,22 @@
+cofla esta por comenzar clases y ya las 12 materias de la carrera
+tiene asignado un profesor y todos los almunos que se anotaron en dichas clases,
+pero neceistamos ver esto ordenadamnete:
+
+- crea una funcion que al pasarle como paremetro la materia
+nos devuelva: *profesor asignado
+              *el nombre de todos los almunos
+
+-crea una funcion que nos diga en cuentas clases esta Clofa.
+-nombrar las claes en las que esta el profesor de cada una.
+
+____________________________________________________________________
+********************************************************************
+____________________________________________________________________
+
+ejercio 2:
+Clofa ya vio las 12 materias y se decidio en cual se va inscribir asi que
+en tres dias lo hará, el problema es que se rompió el siste de inscripciones.
+
+- crea una funcion para preguntarle a Clofa en que materia se quiere inscribir.
+- si hay 20 almunos anotas en la materia negarle la inscripcio. 
+- si hay menos de 20 almunos inscribir a cofla y añadrilo a la lista de almunos.
