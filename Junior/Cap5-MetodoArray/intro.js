@@ -119,7 +119,7 @@ const info = [{ // arrays de objetos
 
 // El método find( ) 👉 devuelve el valor del primer elemento del array que cumple la función de prueba proporcionada.
 // buscar un elemento en el array que selecionemos
-const buscar = (info) => info.title === 'porque deje angular';
+const buscar = ({title}) => title === 'porque deje angular';
 
 const resultado4 = info.find(buscar);
 console.log(resultado4);

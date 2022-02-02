@@ -47,12 +47,30 @@ document.write(cantidadClase('cofla'))
 
 //objeto array
 const materias1 = [{
-    fisica: ['pedro', 'maria', 'cofla'], 
+    fisica: ['profesorjuan', 'pedro', 'maria', 'cofla'], 
     programacion: ['pedro', 'juan', 'maria', ],
     logica: ['pedro', 'juan', 'maria', 'cofla'],
     quimica: ['pedro', 'juan',  'cofla']
 }];
 
+document.write('<br>metodos:<br>')
 const arrayMap = materias1.map(materias1 => materias1.fisica)
-document.write(`alumnos registrados: ` + arrayMap);
+document.write(`alumnos registrados : <b style="color:Fuchsia">${arrayMap}</b>`);
 console.log(arrayMap);
+
+const profe = materias1.find(materias1 => materias1.fisica.includes('profesorjuan'));
+document.write('<br>profesor: ', profe) 
+console.log(profe);
+
+////
+const obtnerInfo22 = ( asing ) => {
+  mate11 = {
+      fisica: ['profe lucas', 'pedro', 'maria', 'cofla'], 
+      programacion: ['profe vaqui', 'pedro', 'juan', 'maria', ],
+      logica: ['profe angela', 'pedro', 'juan', 'maria', 'cofla'],
+      quimica: ['profe daniel', 'pedro', 'juan',  'cofla']
+  }
+  return console.log(mate11[asing])
+};
+
+obtnerInfo22('logica');
