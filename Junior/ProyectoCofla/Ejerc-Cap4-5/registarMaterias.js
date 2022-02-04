@@ -62,7 +62,7 @@ const profe = materias1.find(materias1 => materias1.fisica.includes('profesorjua
 document.write('<br>profesor: ', profe) 
 console.log(profe);
 
-////
+// pruebas
 const obtnerInfo22 = ( asing ) => {
   mate11 = {
       fisica: ['profe lucas', 'pedro', 'maria', 'cofla'], 
@@ -74,3 +74,22 @@ const obtnerInfo22 = ( asing ) => {
 };
 
 obtnerInfo22('logica');
+
+// ejercicio2
+
+// const asignaturas = {
+//   fisica:['juan', 'cofla', 'maria', 'pedro'],
+//   programacion: ['juan', 'cofla', 'maria'],
+//   logica:['juan', 'cofla', 'maria', 'lucas'],
+//   quimica:['juan',  'pedro', 'lucas'],
+// };
+
+// const inscribir = (almuno, materiaa) => {
+//   let personas = asignaturas[materiaa] 
+//   personas.shift();
+//   almuno = personas;
+//   if(almuno.length >= 20){
+//     document.write(`lo sientdo ${alumno}, las clases de ${materia} ya estan llenas`);
+//   }
+// }
+
