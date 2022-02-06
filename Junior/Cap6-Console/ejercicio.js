@@ -45,3 +45,30 @@ const aprobar = () => {
 };
 
 aprobar();
+
+// ejercicio2
+let trabajo = "240min de trabajo";
+let estudio = "100min de estudio";
+let tp = "1000min de trabajos practicos";
+let homework = "30min de hogar";
+let descanco = "10min de descanso";
+
+console.log('Tareas');
+for (let index = 0; index < 10; index++) {
+  if (index == 0) {
+    console.group("semana 1");
+  }
+console.groupCollapsed("DIA " + (index + 1));
+console.log(trabajo);
+console.log(estudio);
+console.log(descanco);
+console.log(homework);
+  if (index == 7) {
+    console.groupEnd();
+    console.groupCollapsed("semana 2");
+  }
+}
+console.groupEnd();
+console.groupEnd();
+
+

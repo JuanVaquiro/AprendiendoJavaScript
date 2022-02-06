@@ -19,4 +19,3 @@ console.warn('peligron no pulse el botton');
 // time( ) 👉 incia un temporizador
 // timeEnd( ) 👉 detiene un temporizador
 // timeLog( ) 👉 registar el valor actual del time
-
