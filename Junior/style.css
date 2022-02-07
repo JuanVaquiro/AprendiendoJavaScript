@@ -23,3 +23,52 @@ body{
 .caja{
     color: aquamarine;
 }
+
+
+/* estilos llaves */
+
+.container-flx{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flex-item{
+    flex-grow: 1;
+    margin: 20px;
+    max-width: 310px;
+    border: 2px solid rgb(116, 8, 116);
+    padding: 20px;
+}
+.flex-item:hover{
+    border-color: green;
+    box-shadow: 0px, 0px, 30px green;
+}
+.flex-item:focus{
+    border-color: green;
+    box-shadow: 0px, 0px, 30px green;
+}
+.llave-png{
+    width:300px;
+}
+
+.price{
+    color: green;
+}
+
+form{
+    width: 100%;
+    text-align:center;
+    padding: 50px;
+}
+input[type="submit"]{
+    background-color: green;
+    border: none;
+    padding: 12px 38px;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+h2,h3 {
+	margin: 0;
+}
