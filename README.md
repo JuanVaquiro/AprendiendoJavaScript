@@ -1,5 +1,9 @@
-# CursoJavaScriptDalto
-MIS APUNTES DE : Este es el curso de javascript desde cero a experto que vas a terminar, te prometo que no te vas a aburrir durante el aprendizaje de este curso de javascript, vas a aprender javascript fácil. del canal de yb https://www.youtube.com/watch?v=z95mZVUcJ-E&amp;t=6092s&amp;ab_channel=SoyDalto
-
+# AprendiendoJavaScript 😃
+MI Coleccion de apuntes, cursos y ejercicios: de cero a experto, aprendizaje de javascript-
+fuentes: 
+- https://www.youtube.com/watch?v=z95mZVUcJ-E&amp;t=6092s&amp;ab_channel=SoyDalto
+- https://developer.mozilla.org/es/
+- https://adventjs.dev/
+- https://www.youtube.com/c/CarlosAzaustre
 
 <!-- Consolas, 'Courier New', monospace  es el fontFamily defaul de VSC-->
