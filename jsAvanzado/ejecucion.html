@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entorno De Ejecucion JS</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+
+        /* contexto de de ejecucion: son contenedores que el motor de js 
+        utiliza para orjanizar la ejecucion del codigo en la app */
+
+        // Contexto de ejecucion global 
+        console.log(this);
+
+        // Contexto de la funcion 
+        function incrementar(val) {
+            return val + 1;
+        }
+
+        incrementar(5)
+
+        // Entorno Léxico
+        let a = 1;
+        function primeraFuncion() {
+            let b = 2
+            console.log("El valor de a es: ", a);
+            console.log("valor de b:", b);
+        }
+
+        function imprimirLetra() {
+            let a = 2
+            let b = 3
+            console.log("valor de b fn2:", b);
+            primeraFuncion();
+        }
+
+        imprimirLetra();
+
+
+        /* Fase de creacion
+        Colcocacion en memorai de variables y funciones */
+        /* Fase de ejecucion
+        Ejecucion de codigo linea por linea */
+
+
+    </script>
+</body>
+
+</html>
