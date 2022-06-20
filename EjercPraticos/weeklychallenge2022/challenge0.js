@@ -8,11 +8,10 @@
  * - Múltiplos de 3 por la palabra "fizz".
  * - Múltiplos de 5 por la palabra "buzz".
  * - Múltiplos de 3 y de 5 a la vez por la palabra "fizzbuzz".
- */
-
+*/
 
 const main = () => {
-  for (let i = 0; i <= 100; i++) {
+  for (let i = 1; i <= 100; i++) {
     let multi3 = i % 3 === 0;
     let multi5 = i % 5 === 0;
     if (multi3 && multi5) {
@@ -27,5 +26,31 @@ const main = () => {
   }
 };
 
+// second try
+function main1() {
+    for (let index = 1; index <= 100; index++) {
+        if ( index % 3 === 0 && index % 5 === 0 ) {
+            console.log( index,  'FIZZBUZZ')
+        }  else if (  index % 3 === 0 ) {
+            console.log( index, "fizz");
+          } else if ( index % 5 === 0 ) {
+            console.log( index, "buzz");
+          } else(
+            console.log(index)
+        )
+    }
+}
 
-main()
+// three try
+function main2(){
+  for (let i = 1; i <= 100; i++) {
+    i % 3 === 0 && i % 5 === 0 ? console.log(`fizz buzz`) 
+    : i % 3 === 0 ? console.log(`fizz`) 
+    : i % 5 === 0 ? console.log('buzz')
+    : console.log(i);
+  }
+}
+
+// main()
+// main1()
+// main2()
