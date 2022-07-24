@@ -31,7 +31,7 @@ function selectMonsterPlayer() {
   sectionMonsterkSelect.style.display = "none";
 
   let sectionAtackSelect = document.getElementById("atack-select");
-  sectionAtackSelect.style.display = "block";
+  sectionAtackSelect.style.display = "flex";
 
   let inpuntDrangpo = document.getElementById("Dragonpo");
   let inpuntLionpo = document.getElementById("Lionpo");
@@ -50,7 +50,7 @@ function selectMonsterPlayer() {
     sectionAtackSelect.style.display = "none";
 
     let sectionMonsterkSelect = document.getElementById("monster-select");
-    sectionMonsterkSelect.style.display = "block";
+    sectionMonsterkSelect.style.display = "flex";
   }
   selectMonsterEnemy();
 }
@@ -90,7 +90,7 @@ function enemyRandomAtack() {
   if (randomAtack == 1) {
     enemyAtack = "FUEGO 🔥";
   } else if (randomAtack == 2) {
-    enemyAtack = "AGUA 💧";
+    enemyAtack = "AGUA 💧"; 
   } else {
     enemyAtack = "TIERRA 🌱";
   }
