@@ -34,16 +34,16 @@ function selectMonsterPlayer() {
   sectionAtackSelect.style.display = "flex";
 
   let inpuntDrangpo = document.getElementById("Dragonpo");
-  let inpuntLionpo = document.getElementById("Lionpo");
-  let inpuntCocodripo = document.getElementById("Cocodripo");
+  let inpuntLionpo = document.getElementById("Cocodripo");
+  let inpuntCocodripo = document.getElementById("Ardispo");
   let playerSpan = document.getElementById("monster-player");
 
   if (inpuntDrangpo.checked) {
     playerSpan.innerHTML = "Dragonpo";
   } else if (inpuntLionpo.checked) {
-    playerSpan.innerHTML = "Lionpo";
-  } else if (inpuntCocodripo.checked) {
     playerSpan.innerHTML = "Cocodripo";
+  } else if (inpuntCocodripo.checked) {
+    playerSpan.innerHTML = "Ardispo";
   } else {
     alert("Oops!! algo salio Mal \n Porfavor selecciona un Monstermon");
     let sectionAtackSelect = document.getElementById("atack-select");
@@ -62,9 +62,9 @@ function selectMonsterEnemy() {
   if (randomMonster == 1) {
     enemySpan.innerHTML = "Dragonpo";
   } else if (randomMonster == 2) {
-    enemySpan.innerHTML = "Lionpo";
-  } else {
     enemySpan.innerHTML = "Cocodripo";
+  } else {
+    enemySpan.innerHTML = "Ardispo";
   }
 }
 
@@ -122,19 +122,18 @@ function combat() {
     spanLifePlayer.innerHTML = playerLifes;
   }
 
-  playerWin();
 }
 
 function playerWin() {
   if (playerLifes == 0) {
     let sectionrRestart = document.getElementById("restart-select");
     sectionrRestart.style.display = "block";
-    alert(`Opps!! ☠ haz perdido la partida ☠ \n FIN JUEGO`);
+    createMessageGameOver("Opps!! 😢 haz perdido la partida 😢 FIN JUEGO")
     disableButton();
   } else if (enemylifes == 0) {
     let sectionrRestart = document.getElementById("restart-select");
     sectionrRestart.style.display = "block";
-    alert(`Huurra!! 🏆 haz ganado la partida 🏆 \n FIN JUEGO`);
+    createMessageGameOver("Huurra!! 🏆 haz ganado la partida 🏆 FIN JUEGO")
     disableButton();
   }
 }
@@ -149,12 +148,25 @@ function disableButton() {
 }
 
 function createMessage() {
-  let paragraph = document.createElement("p");
-  paragraph.innerHTML = `atacaste con ${playerAtack} <br/>
-    el enemigo ataca con ${enemyAtack} <br/> ${resultCombat}`;
+  let sectionMessage = document.getElementById("result")
+  let msmPlayerAtack = document.getElementById("msm-player-atack");
+  let msmEnemyAtack = document.getElementById("msm-enemy-atack");
+  
+  let paragraphPlayer = document.createElement('p')
+  let paragraphEnemy = document.createElement('p')
 
-  let sectionMessage = document.getElementById("messages");
-  sectionMessage.appendChild(paragraph);
+  sectionMessage.innerHTML = `${resultCombat}`
+  paragraphPlayer.innerHTML = `${playerAtack}`
+  paragraphEnemy.innerHTML = `${enemyAtack}`
+
+  msmPlayerAtack.appendChild(paragraphPlayer);
+  msmEnemyAtack.appendChild(paragraphEnemy);
+  playerWin();
+}
+
+function createMessageGameOver(finalResult) {
+  let sectionMessage = document.getElementById("result")
+  sectionMessage.innerHTML = finalResult
 }
 
 function gameRestart() {

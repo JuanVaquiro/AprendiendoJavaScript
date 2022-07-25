@@ -7,7 +7,6 @@ body{
     'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-
 .main-conter{
     display: flex;
     flex-direction: column;
@@ -30,6 +29,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0.6;
 }
 
 .monster-card2 {
@@ -42,6 +42,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0.6;
 }
 
 .monster-card3 {
@@ -54,14 +55,22 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0.6;
 }
- 
+
 img{
     width: 160px;
 }
 
 input{
     display: none; 
+}
+
+input:checked + label {
+    opacity: 1;
+    width: 280px;
+    height: 180px;
+    margin-top: -10px;
 }
 
 button{
@@ -74,8 +83,88 @@ button{
     color: white;
 }
 
+button:disabled{
+    opacity: 0.6;
+}
+
 #atack-select{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#messages{
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 14px;
+    border-radius: 20px;
+    border: 2px solid rgba(57, 249, 23, 0.772);
+    box-shadow: 2px 2px 22px 2px rgba(57, 249, 23, 0.295);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+#messages p{
+    font-weight: bold;
+    color: rgba(57, 249, 23, 0.772);
+    font-size: 20px;
+    margin: 0px
+}
+
+#btn-restart{
+    margin-top: 10px;
+    width: 180px;
+}
+
+.container-msm-combat{
+    display: grid;
+    grid-template-columns: 100px 100px;
+
+}
+.sub-container-msm{
+    display: flex;
+    align-items: center;
+}
+.sub-container-msm p {
+    margin-right: 5px;
+}
+
+#monster-player{ 
+    font-weight: bold;
+}
+#monster-enemy{
+    font-weight: bold;
+}
+
+#life-player{
+    font-size: 28px;
+    font-weight: bold;
+}
+#life-enemy{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.sub-dub-container-pyl, .sub-dub-container-eny{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+@media (max-width: 720px) {
+    .conter-card{
+        flex-direction: column;
+    }
+
+    .grup-btn-conter-atack{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #messages{
+        width: 236px;
+    }
 }
