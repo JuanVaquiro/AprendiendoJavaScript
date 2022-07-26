@@ -20,16 +20,81 @@ const spanLifeEnemy = document.getElementById("life-enemy");
 const sectionMessage = document.getElementById("result")
 const msmPlayerAtack = document.getElementById("msm-player-atack");
 const msmEnemyAtack = document.getElementById("msm-enemy-atack")
+const containerCardMonster = document.getElementById("conter-card-id")
 
 let playerAtack
 let enemyAtack
 let playerLifes = 3
 let enemylifes = 3
 let resultCombat
+let monstermons = []
+let opcionMonstermon 
+
+class Monstermon{
+  constructor(nombre, img, vida, tipo) {
+    this.nombre = nombre
+    this.img = img
+    this.vida = vida
+    this.tipo = tipo
+    this.ataques = []
+    
+  }
+}
+
+let dragonpo = new Monstermon('Dragonpo', 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/255.png', 5 , 'fire')
+
+let cocodripo = new Monstermon('Cocodripo', 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/258.png', 5 , 'water')
+
+let ardispo = new Monstermon('Ardispo', 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/252.png', 5 , 'land')
+
+//objeto litetario
+dragonpo.ataques.push(
+  { nombre:'Fuego 🔥', id:'btn-fire'},
+  { nombre:'Fuego 🔥', id:'btn-fire'},
+  { nombre:'Fuego 🔥', id:'btn-fire'},
+  { nombre:'Fuego 💧', id:'btn-water'},
+  { nombre:'Fuego 🌱', id:'btn-land'}
+)
+
+cocodripo.ataques.push(
+  { nombre:'Fuego 💧', id:'btn-water'},
+  { nombre:'Fuego 💧', id:'btn-water'},
+  { nombre:'Fuego 🔥', id:'btn-fire'},
+  { nombre:'Fuego 🌱', id:'btn-land'}
+)
+
+ardispo.ataques.push(
+  { nombre:'Fuego 🌱', id:'btn-land'},
+  { nombre:'Fuego 🌱', id:'btn-land'},
+  { nombre:'Fuego 🌱', id:'btn-land'},
+  { nombre:'Fuego 🔥', id:'btn-fire'},
+  { nombre:'Fuego 💧', id:'btn-water'},
+)
+
+
+
+monstermons.push(dragonpo, cocodripo, ardispo )
+
 
 function startGame() {
   sectionAtackSelect.style.display = "none";
   sectionrRestart.style.display = "none";
+
+  // por cada uno de los elementos de(monstermons) haz algo
+  // por cada monstermon que existe dentro el array[monstermons] haz algod
+  monstermons.forEach(( monstermon ) => {
+    
+    opcionMonstermon = `
+    <input type="radio" name="monstermon" id=${monstermon.nombre}>
+    <label class="monster-card-${monstermon.tipo}" for=${monstermon.nombre}>
+        <p>${monstermon.nombre}</p>
+        <img src=${monstermon.img} 
+        alt=${monstermon.nombre}>
+    </label>
+    `
+    containerCardMonster.innerHTML += opcionMonstermon 
+    
+  })
 
   btnPlayer.addEventListener("click", selectMonsterPlayer);
   btnFire.addEventListener("click", fireAtack);

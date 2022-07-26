@@ -19,7 +19,7 @@ body{
     gap: 10px;   
 }
 
-.monster-card1 {
+.monster-card-fire {
     background-color: rgb(254 66 24 / 71%);
     width: 260px;
     height: 164px;
@@ -32,7 +32,7 @@ body{
     opacity: 0.6;
 }
 
-.monster-card2 {
+.monster-card-water {
     background-color: rgba(24, 39, 254, 0.705);
     width: 260px;
     height: 164px;
@@ -45,7 +45,7 @@ body{
     opacity: 0.6;
 }
 
-.monster-card3 {
+.monster-card-land {
     background-color: rgba(47, 254, 24, 0.705);
     width: 260px;
     height: 164px;
