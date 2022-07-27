@@ -1,9 +1,6 @@
 const sectionAtackSelect = document.getElementById("atack-select")
 const sectionrRestart = document.getElementById("restart-select")
 const btnPlayer = document.getElementById("btn-animalSelect")
-const btnFire = document.getElementById("btn-fire")
-const btnWater = document.getElementById("btn-water")
-const btnLand = document.getElementById("btn-land")
 const btnRestart = document.getElementById("btn-restart")
 
 const sectionMonsterkSelect = document.getElementById("monster-select");
@@ -18,6 +15,8 @@ const msmPlayerAtack = document.getElementById("msm-player-atack");
 const msmEnemyAtack = document.getElementById("msm-enemy-atack")
 const containerCardMonster = document.getElementById("conter-card-id")
 
+const containerBtnAtacks = document.getElementById("container-btn-atacks")
+
 let playerAtack
 let enemyAtack
 let playerLifes = 3
@@ -27,7 +26,11 @@ let monstermons = []
 let opcionMonstermon 
 let inpuntDrangpo 
 let inputArdispo 
-let inpuntCocodripo 
+let inpuntCocodripo
+let playerMonster
+let btnFire 
+let btnWater 
+let btnLand 
 
 class Monstermon{
   constructor(nombre, img, vida, tipo) {
@@ -39,34 +42,48 @@ class Monstermon{
   }
 }
 
-let dragonpo = new Monstermon('Dragonpo', 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/255.png', 5 , 'fire')
-
-let cocodripo = new Monstermon('Cocodripo', 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/258.png', 5 , 'water')
-
-let ardispo = new Monstermon('Ardispo', 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/252.png', 5 , 'land')
+let dragonpo = new Monstermon(
+  'Dragonpo', 
+  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/255.png', 
+  5 , 
+  'fire'
+)
+let cocodripo = new Monstermon(
+  'Cocodripo', 
+  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/258.png', 
+  5 , 
+  'water'
+)
+let ardispo = new Monstermon(
+  'Ardispo', 
+  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/252.png', 
+  5 , 
+  'land'
+)
 
 //objeto litetario
 dragonpo.ataques.push(
   { nombre:'Fuego 🔥', id:'btn-fire'},
   { nombre:'Fuego 🔥', id:'btn-fire'},
   { nombre:'Fuego 🔥', id:'btn-fire'},
-  { nombre:'Fuego 💧', id:'btn-water'},
-  { nombre:'Fuego 🌱', id:'btn-land'}
+  { nombre:'Agua 💧', id:'btn-water'},
+  { nombre:'Tierra 🌱', id:'btn-land'}
 )
 
 cocodripo.ataques.push(
-  { nombre:'Fuego 💧', id:'btn-water'},
-  { nombre:'Fuego 💧', id:'btn-water'},
+  { nombre:'Agua 💧', id:'btn-water'},
+  { nombre:'Agua 💧', id:'btn-water'},
+  { nombre:'Agua 💧', id:'btn-water'},
   { nombre:'Fuego 🔥', id:'btn-fire'},
-  { nombre:'Fuego 🌱', id:'btn-land'}
+  { nombre:'Tierra 🌱', id:'btn-land'}
 )
 
 ardispo.ataques.push(
-  { nombre:'Fuego 🌱', id:'btn-land'},
-  { nombre:'Fuego 🌱', id:'btn-land'},
-  { nombre:'Fuego 🌱', id:'btn-land'},
+  { nombre:'Tierra 🌱', id:'btn-land'},
+  { nombre:'Tierra 🌱', id:'btn-land'},
+  { nombre:'Tierra 🌱', id:'btn-land'},
   { nombre:'Fuego 🔥', id:'btn-fire'},
-  { nombre:'Fuego 💧', id:'btn-water'},
+  { nombre:'Agua 💧', id:'btn-water'},
 )
 
 monstermons.push(dragonpo, cocodripo, ardispo )
@@ -96,9 +113,6 @@ function startGame() {
   })
 
   btnPlayer.addEventListener("click", selectMonsterPlayer);
-  btnFire.addEventListener("click", fireAtack);
-  btnWater.addEventListener("click", waterAtack);
-  btnLand.addEventListener("click", landAtack);
   btnRestart.addEventListener("click", gameRestart);
 }
 
@@ -107,16 +121,20 @@ function selectMonsterPlayer() {
   sectionAtackSelect.style.display = "flex";
 
   if (inpuntDrangpo.checked) {
-    playerSpan.innerHTML = "Dragonpo";
+    playerSpan.innerHTML = inpuntDrangpo.id;
+    playerMonster = inpuntDrangpo.id
   } else if (inpuntCocodripo.checked) {
-    playerSpan.innerHTML = "Cocodripo";
+    playerSpan.innerHTML = inpuntCocodripo.id;
+    playerMonster = inpuntCocodripo.id
   } else if (inputArdispo.checked) {
-    playerSpan.innerHTML = "Ardispo";
+    playerSpan.innerHTML = inputArdispo.id;
+    playerMonster = inputArdispo.id
   } else {
     alert("Oops!! algo salio Mal \n Porfavor selecciona un Monstermon");
     sectionAtackSelect.style.display = "none";
     sectionMonsterkSelect.style.display = "flex";
   }
+  extractAtacks(playerMonster);
   selectMonsterEnemy();
 }
 
@@ -130,8 +148,32 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function extractAtacks(playerMonster) {
+  let atacks
+  for (let i = 0; i < monstermons.length; i++) {
+    if (playerMonster === monstermons[i].nombre) {
+        atacks = monstermons[i].ataques
+    }
+  }
+  btnsAtacks(atacks)
+}
+
+function btnsAtacks(atacks) {
+  atacks.forEach((atack) => {
+    playerAtack = `<button id=${atack.id}>${atack.nombre}</button>`;
+    containerBtnAtacks.innerHTML += playerAtack;
+  });
+  btnFire = document.getElementById("btn-fire");
+  btnWater = document.getElementById("btn-water");
+  btnLand = document.getElementById("btn-land");
+
+  btnFire.addEventListener("click", fireAtack);
+  btnWater.addEventListener("click", waterAtack);
+  btnLand.addEventListener("click", landAtack);
+}
+
 function fireAtack() {
-  playerAtack = "FUEGO 🔥";
+  // playerAtack = "FUEGO 🔥";
   enemyRandomAtack();
 }
 function waterAtack() {
