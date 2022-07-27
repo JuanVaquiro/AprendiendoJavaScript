@@ -8,10 +8,6 @@ const btnRestart = document.getElementById("btn-restart")
 
 const sectionMonsterkSelect = document.getElementById("monster-select");
 const playerSpan = document.getElementById("monster-player");
-const inpuntDrangpo = document.getElementById("Dragonpo");
-const inpuntLionpo = document.getElementById("Cocodripo");
-const inpuntCocodripo = document.getElementById("Ardispo");
-
 const enemySpan = document.getElementById("monster-enemy");
 
 const spanLifePlayer = document.getElementById("life-player");
@@ -29,6 +25,9 @@ let enemylifes = 3
 let resultCombat
 let monstermons = []
 let opcionMonstermon 
+let inpuntDrangpo 
+let inputArdispo 
+let inpuntCocodripo 
 
 class Monstermon{
   constructor(nombre, img, vida, tipo) {
@@ -37,7 +36,6 @@ class Monstermon{
     this.vida = vida
     this.tipo = tipo
     this.ataques = []
-    
   }
 }
 
@@ -71,10 +69,7 @@ ardispo.ataques.push(
   { nombre:'Fuego 💧', id:'btn-water'},
 )
 
-
-
 monstermons.push(dragonpo, cocodripo, ardispo )
-
 
 function startGame() {
   sectionAtackSelect.style.display = "none";
@@ -93,6 +88,10 @@ function startGame() {
     </label>
     `
     containerCardMonster.innerHTML += opcionMonstermon 
+
+    inpuntDrangpo = document.getElementById("Dragonpo");
+    inpuntCocodripo = document.getElementById("Cocodripo");
+    inputArdispo = document.getElementById("Ardispo");
     
   })
 
@@ -109,9 +108,9 @@ function selectMonsterPlayer() {
 
   if (inpuntDrangpo.checked) {
     playerSpan.innerHTML = "Dragonpo";
-  } else if (inpuntLionpo.checked) {
-    playerSpan.innerHTML = "Cocodripo";
   } else if (inpuntCocodripo.checked) {
+    playerSpan.innerHTML = "Cocodripo";
+  } else if (inputArdispo.checked) {
     playerSpan.innerHTML = "Ardispo";
   } else {
     alert("Oops!! algo salio Mal \n Porfavor selecciona un Monstermon");
@@ -122,15 +121,9 @@ function selectMonsterPlayer() {
 }
 
 function selectMonsterEnemy() {
-  let randomMonster = random(1, 3);
+  let randomMonster = random(0, monstermons.length - 1);
 
-  if (randomMonster == 1) {
-    enemySpan.innerHTML = "Dragonpo";
-  } else if (randomMonster == 2) {
-    enemySpan.innerHTML = "Cocodripo";
-  } else {
-    enemySpan.innerHTML = "Ardispo";
-  }
+  enemySpan.innerHTML = monstermons[randomMonster].nombre
 }
 
 function random(min, max) {
