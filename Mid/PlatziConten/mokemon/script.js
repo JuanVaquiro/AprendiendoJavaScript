@@ -9,18 +9,21 @@ const enemySpan = document.getElementById("monster-enemy");
 
 const spanLifePlayer = document.getElementById("life-player");
 const spanLifeEnemy = document.getElementById("life-enemy");
+const spanDraw = document.getElementById("draw");
 
-const sectionMessage = document.getElementById("result")
+const sectionMessage = document.getElementById("result");
 const msmPlayerAtack = document.getElementById("msm-player-atack");
 const msmEnemyAtack = document.getElementById("msm-enemy-atack")
 const containerCardMonster = document.getElementById("conter-card-id")
 
 const containerBtnAtacks = document.getElementById("container-btn-atacks")
 
-let playerAtack
-let enemyAtack
-let playerLifes = 3
-let enemylifes = 3
+let playerAtack = []
+let enemyAtack = []
+let grupAtackMonster
+let monsterAtacks
+// let playerLifes = 3
+// let enemylifes = 3
 let resultCombat
 let monstermons = []
 let opcionMonstermon 
@@ -31,6 +34,12 @@ let playerMonster
 let btnFire 
 let btnWater 
 let btnLand 
+let bottons = []
+let getAtackPlayer 
+let getAtackEnemy 
+let winsPlayer = 0
+let winsEnemy = 0
+let conDraw = 0
 
 class Monstermon{
   constructor(nombre, img, vida, tipo) {
@@ -111,7 +120,6 @@ function startGame() {
     inputArdispo = document.getElementById("Ardispo");
     
   })
-
   btnPlayer.addEventListener("click", selectMonsterPlayer);
   btnRestart.addEventListener("click", gameRestart);
 }
@@ -142,6 +150,9 @@ function selectMonsterEnemy() {
   let randomMonster = random(0, monstermons.length - 1);
 
   enemySpan.innerHTML = monstermons[randomMonster].nombre
+  grupAtackMonster = monstermons[randomMonster].ataques
+  console.log(grupAtackMonster)
+  secuenciaAtack()
 }
 
 function random(min, max) {
@@ -152,7 +163,7 @@ function extractAtacks(playerMonster) {
   let atacks
   for (let i = 0; i < monstermons.length; i++) {
     if (playerMonster === monstermons[i].nombre) {
-        atacks = monstermons[i].ataques
+      atacks = monstermons[i].ataques
     }
   }
   btnsAtacks(atacks)
@@ -160,77 +171,108 @@ function extractAtacks(playerMonster) {
 
 function btnsAtacks(atacks) {
   atacks.forEach((atack) => {
-    playerAtack = `<button id=${atack.id}>${atack.nombre}</button>`;
-    containerBtnAtacks.innerHTML += playerAtack;
+    monsterAtacks = `<button id=${atack.id} class="btn-atack" >${atack.nombre}</button>`;
+    containerBtnAtacks.innerHTML += monsterAtacks;
   });
   btnFire = document.getElementById("btn-fire");
   btnWater = document.getElementById("btn-water");
   btnLand = document.getElementById("btn-land");
-
-  btnFire.addEventListener("click", fireAtack);
-  btnWater.addEventListener("click", waterAtack);
-  btnLand.addEventListener("click", landAtack);
+  bottons = document.querySelectorAll(".btn-atack")
 }
 
-function fireAtack() {
-  // playerAtack = "FUEGO 🔥";
-  enemyRandomAtack();
-}
-function waterAtack() {
-  playerAtack = "AGUA 💧";
-  enemyRandomAtack();
-}
-function landAtack() {
-  playerAtack = "TIERRA 🌱";
-  enemyRandomAtack();
+function secuenciaAtack() {
+  bottons.forEach((botton) => {
+    botton.addEventListener('click', (e) => {
+      if (e.target.textContent === 'Fuego 🔥') { 
+        playerAtack.push('Fuego 🔥')
+        botton.style.opacity = '0.5' 
+      } else if(e.target.textContent === 'Agua 💧') {
+        playerAtack.push('Agua 💧')
+        botton.style.opacity = '0.5' 
+      } else {
+        playerAtack.push('Tierra 🌱')
+        botton.style.opacity = '0.5' 
+      }
+      console.log('PLAYER',playerAtack)
+      enemyRandomAtack()
+    })
+  })
 }
 
 function enemyRandomAtack() {
-  let randomAtack = random(1, 3);
-  if (randomAtack == 1) {
-    enemyAtack = "FUEGO 🔥";
-  } else if (randomAtack == 2) {
-    enemyAtack = "AGUA 💧"; 
-  } else {
-    enemyAtack = "TIERRA 🌱";
-  }
-  combat();
-  createMessage();
+  let randomAtack = random(0, grupAtackMonster.length -1 );
+  // console.log('random', randomAtack)
+  // if (randomAtack == 0 || randomAtack == 1) {
+  //   enemyAtack.push("Fuego 🔥")
+  // } else if (randomAtack == 3  || randomAtack == 4) {
+  //   enemyAtack.push("Agua 💧") 
+  // } else {
+  //   enemyAtack.push("Tierra 🌱");
+  // }
+  enemyAtack.push(grupAtackMonster[randomAtack].nombre)
+  grupAtackMonster.splice(randomAtack, 1)
+  console.log('ENMY',enemyAtack)
+  console.log(grupAtackMonster)
+  startFaight()
 }
 
-function combat() {
-  
-  if (playerAtack == enemyAtack) {
-    resultCombat = "EMPATE";
-  } else if (playerAtack == "FUEGO 🔥" && enemyAtack == "TIERRA 🌱") {
-    resultCombat = "GANASTE";
-    enemylifes--;
-    spanLifeEnemy.innerHTML = enemylifes;
-  } else if (playerAtack == "AGUA 💧" && enemyAtack == "FUEGO 🔥") {
-    resultCombat = "GANASTE";
-    enemylifes--;
-    spanLifeEnemy.innerHTML = enemylifes;
-  } else if (playerAtack == "TIERRA 🌱" && enemyAtack == "AGUA 💧") {
-    resultCombat = "GANASTE";
-    enemylifes--;
-    spanLifeEnemy.innerHTML = enemylifes;
-  } else {
-    resultCombat = "PIERDES";
-    playerLifes--;
-    spanLifePlayer.innerHTML = playerLifes;
+function startFaight() {
+  if (playerAtack.length === 5) {
+    combat()
   }
+}
 
+function getAtackTwoPlayer(player, enemy) {
+  getAtackPlayer = playerAtack[player]
+  getAtackEnemy = enemyAtack[enemy]
+}
+
+
+function combat() {
+  for (let index = 0; index < playerAtack.length; index++) {
+    // console.log(playerAtack[index])
+    if (playerAtack[index] === enemyAtack[index]) {
+      getAtackTwoPlayer(index, index)
+      resultCombat = "EMPATE";
+      conDraw ++
+      spanDraw.innerHTML = conDraw
+    } else if(playerAtack[index] === "Fuego 🔥" && enemyAtack[index] === "Tierra 🌱") {
+      getAtackTwoPlayer(index, index)
+      resultCombat = "GANASTE";
+      winsPlayer ++
+      spanLifePlayer.innerHTML = winsPlayer
+    } else if(playerAtack[index] === "Agua 💧" && enemyAtack[index] === "Fuego 🔥"){
+      getAtackTwoPlayer(index, index)
+      resultCombat = "GANASTE";
+      winsPlayer ++
+      spanLifePlayer.innerHTML = winsPlayer
+    } else if(playerAtack[index] === "Tierra 🌱" && enemyAtack[index] === "Agua 💧"){
+      getAtackTwoPlayer(index, index)
+      resultCombat = "GANASTE";
+      winsPlayer ++
+      spanLifePlayer.innerHTML = winsPlayer
+    } else {
+      getAtackTwoPlayer(index, index)
+      resultCombat = "PIERDES";
+      winsEnemy ++
+      spanLifeEnemy.innerHTML = winsEnemy
+    } 
+    createMessage();
+  }
 }
 
 function playerWin() {
-  if (playerLifes == 0) {
+  if (winsPlayer  === winsEnemy) {
+    sectionrRestart.style.display = "block";
+    createMessageGameOver("Oohh, es un EMPATE")
+    disableButton();
+  } else if (winsPlayer  > winsEnemy) {
+    sectionrRestart.style.display = "block";
+    createMessageGameOver("Huurra!! 😎 haz ganado la partida 😎 FIN JUEGO")
+    disableButton();
+  } else {
     sectionrRestart.style.display = "block";
     createMessageGameOver("Opps!! 😢 haz perdido la partida 😢 FIN JUEGO")
-    disableButton();
-  } else if (enemylifes == 0) {
-    sectionrRestart.style.display = "block";
-    createMessageGameOver("Huurra!! 🏆 haz ganado la partida 🏆 FIN JUEGO")
-    disableButton();
   }
 }
 
@@ -244,9 +286,9 @@ function createMessage() {
   let paragraphPlayer = document.createElement('p')
   let paragraphEnemy = document.createElement('p')
 
-  sectionMessage.innerHTML = `${resultCombat}`
-  paragraphPlayer.innerHTML = `${playerAtack}`
-  paragraphEnemy.innerHTML = `${enemyAtack}`
+  sectionMessage.innerHTML = resultCombat
+  paragraphPlayer.innerHTML = getAtackPlayer
+  paragraphEnemy.innerHTML = getAtackEnemy
 
   msmPlayerAtack.appendChild(paragraphPlayer);
   msmEnemyAtack.appendChild(paragraphEnemy);

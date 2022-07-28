@@ -118,6 +118,13 @@ button:disabled{
     width: 180px;
 }
 
+.msm-draw{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -24px 0px;
+}
+
 .container-msm-combat{
     display: grid;
     grid-template-columns: 100px 100px;
@@ -146,7 +153,10 @@ button:disabled{
     font-size: 28px;
     font-weight: bold;
 }
-
+#draw{
+    font-size: 28px;
+    font-weight: bold;
+}
 .sub-dub-container-pyl, .sub-dub-container-eny{
     display: flex;
     flex-direction: column;
