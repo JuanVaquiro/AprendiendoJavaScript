@@ -6,7 +6,14 @@ body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 
     'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
+h1{
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0px;
+    margin-top: 15px;
+    font-style: oblique;
+    color: skyblue;
+}
 .main-conter{
     display: flex;
     flex-direction: column;
@@ -16,12 +23,16 @@ body{
 
 .conter-card{
     display: flex;
-    gap: 10px;   
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 84%;
+    align-items: center;
+    justify-content: center;
 }
 
 .monster-card-fire {
-    background-color: rgb(254 66 24 / 71%);
-    width: 260px;
+    background-image: linear-gradient(red, yellow);
+    width: 300px;
     height: 164px;
     padding: 10px;
     box-sizing: border-box; /* para que el padding no afecte el tamano de la caja */
@@ -33,8 +44,8 @@ body{
 }
 
 .monster-card-water {
-    background-color: rgba(24, 39, 254, 0.705);
-    width: 260px;
+    background-image: linear-gradient(blue, skyblue);
+    width: 300px;
     height: 164px;
     padding: 10px;
     box-sizing: border-box; /* para que el padding no afecte el tamano de la caja */
@@ -45,9 +56,9 @@ body{
     opacity: 0.6;
 }
 
-.monster-card-land {
-    background-color: rgba(47, 254, 24, 0.705);
-    width: 260px;
+.monster-card-ground {
+    background-image: linear-gradient(green, greenyellow);
+    width: 300px;
     height: 164px;
     padding: 10px;
     box-sizing: border-box; /* para que el padding no afecte el tamano de la caja */
@@ -56,10 +67,16 @@ body{
     align-items: center;
     justify-content: center;
     opacity: 0.6;
+}
+
+.data-monster p{
+    margin: 0px;
+    font-size: 18px;
 }
 
 img{
     width: 160px;
+    margin-right: -16px;
 }
 
 input{
@@ -68,9 +85,7 @@ input{
 
 input:checked + label {
     opacity: 1;
-    width: 280px;
-    height: 180px;
-    margin-top: -10px;
+    margin-top: -14px;
 }
 
 button{
@@ -85,6 +100,11 @@ button{
 
 button:disabled{
     opacity: 0.6;
+}
+
+.grup-btn-conter-atack button{
+    width: 110px;
+    margin: 10px 4px;
 }
 
 #atack-select{

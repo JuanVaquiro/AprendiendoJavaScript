@@ -21,15 +21,18 @@ const containerBtnAtacks = document.getElementById("container-btn-atacks")
 let playerAtack = []
 let enemyAtack = []
 let grupAtackMonster
+let extractTypeEnemy
+let extractTypePlayer
 let monsterAtacks
-// let playerLifes = 3
-// let enemylifes = 3
 let resultCombat
 let monstermons = []
 let opcionMonstermon 
 let inpuntDrangpo 
 let inputArdispo 
 let inpuntCocodripo
+let inpuntCanipo
+let inpuntGhatopo
+let inpuntCuervoopo
 let playerMonster
 let btnFire 
 let btnWater 
@@ -67,7 +70,25 @@ let ardispo = new Monstermon(
   'Ardispo', 
   'https://assets.pokemon.com/assets/cms2/img/pokedex/full/252.png', 
   5 , 
-  'land'
+  'ground'
+)
+let canipo = new Monstermon(
+  'Canipo', 
+  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/136.png', 
+  5 , 
+  'fire'
+)
+let ghatopo = new Monstermon(
+  'Ghatopo', 
+  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/130.png', 
+  5 , 
+  'water'
+)
+let cuervoopo = new Monstermon(
+  'Cuervoopo', 
+  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/123.png', 
+  5 , 
+  'ground'
 )
 
 //objeto litetario
@@ -78,7 +99,6 @@ dragonpo.ataques.push(
   { nombre:'Agua 💧', id:'btn-water'},
   { nombre:'Tierra 🌱', id:'btn-land'}
 )
-
 cocodripo.ataques.push(
   { nombre:'Agua 💧', id:'btn-water'},
   { nombre:'Agua 💧', id:'btn-water'},
@@ -86,7 +106,6 @@ cocodripo.ataques.push(
   { nombre:'Fuego 🔥', id:'btn-fire'},
   { nombre:'Tierra 🌱', id:'btn-land'}
 )
-
 ardispo.ataques.push(
   { nombre:'Tierra 🌱', id:'btn-land'},
   { nombre:'Tierra 🌱', id:'btn-land'},
@@ -94,8 +113,29 @@ ardispo.ataques.push(
   { nombre:'Fuego 🔥', id:'btn-fire'},
   { nombre:'Agua 💧', id:'btn-water'},
 )
+canipo.ataques.push(
+  { nombre:'Fuego 🔥', id:'btn-fire'},
+  { nombre:'Fuego 🔥', id:'btn-fire'},
+  { nombre:'Fuego 🔥', id:'btn-fire'},
+  { nombre:'Agua 💧', id:'btn-water'},
+  { nombre:'Tierra 🌱', id:'btn-land'}
+)
+ghatopo.ataques.push(
+  { nombre:'Agua 💧', id:'btn-water'},
+  { nombre:'Agua 💧', id:'btn-water'},
+  { nombre:'Agua 💧', id:'btn-water'},
+  { nombre:'Fuego 🔥', id:'btn-fire'},
+  { nombre:'Tierra 🌱', id:'btn-land'}
+)
+cuervoopo.ataques.push(
+  { nombre:'Tierra 🌱', id:'btn-land'},
+  { nombre:'Tierra 🌱', id:'btn-land'},
+  { nombre:'Tierra 🌱', id:'btn-land'},
+  { nombre:'Fuego 🔥', id:'btn-fire'},
+  { nombre:'Agua 💧', id:'btn-water'},
+)
 
-monstermons.push(dragonpo, cocodripo, ardispo )
+monstermons.push(dragonpo, cocodripo, ardispo, canipo, ghatopo, cuervoopo )
 
 function startGame() {
   sectionAtackSelect.style.display = "none";
@@ -108,7 +148,10 @@ function startGame() {
     opcionMonstermon = `
     <input type="radio" name="monstermon" id=${monstermon.nombre}>
     <label class="monster-card-${monstermon.tipo}" for=${monstermon.nombre}>
+      <div class="data-monster">
         <p>${monstermon.nombre}</p>
+        <p>Tipo-${monstermon.tipo}</p>
+      </div>
         <img src=${monstermon.img} 
         alt=${monstermon.nombre}>
     </label>
@@ -118,7 +161,9 @@ function startGame() {
     inpuntDrangpo = document.getElementById("Dragonpo");
     inpuntCocodripo = document.getElementById("Cocodripo");
     inputArdispo = document.getElementById("Ardispo");
-    
+    inpuntCanipo = document.getElementById("Canipo")
+    inpuntGhatopo = document.getElementById("Ghatopo")
+    inpuntCuervoopo = document.getElementById("Cuervoopo") 
   })
   btnPlayer.addEventListener("click", selectMonsterPlayer);
   btnRestart.addEventListener("click", gameRestart);
@@ -137,13 +182,23 @@ function selectMonsterPlayer() {
   } else if (inputArdispo.checked) {
     playerSpan.innerHTML = inputArdispo.id;
     playerMonster = inputArdispo.id
+  } else if (inpuntCanipo.checked) {
+      playerSpan.innerHTML = inpuntCanipo.id;
+      playerMonster = inpuntCanipo.id
+  } else if (inpuntGhatopo.checked) {
+      playerSpan.innerHTML = inpuntGhatopo.id;
+      playerMonster = inpuntGhatopo.id
+  } else if (inpuntCuervoopo.checked) {
+    playerSpan.innerHTML = inpuntCuervoopo.id;
+    playerMonster = inpuntCuervoopo.id
   } else {
     alert("Oops!! algo salio Mal \n Porfavor selecciona un Monstermon");
     sectionAtackSelect.style.display = "none";
     sectionMonsterkSelect.style.display = "flex";
   }
-  extractAtacks(playerMonster);
+  extractType(playerMonster); 
   selectMonsterEnemy();
+  extractAtacks(playerMonster);
 }
 
 function selectMonsterEnemy() {
@@ -151,8 +206,10 @@ function selectMonsterEnemy() {
 
   enemySpan.innerHTML = monstermons[randomMonster].nombre
   grupAtackMonster = monstermons[randomMonster].ataques
+  extractTypeEnemy = monstermons[randomMonster].tipo
   console.log(grupAtackMonster)
-  secuenciaAtack()
+  typeAdvantage(extractTypePlayer, extractTypeEnemy)
+  // secuenciaAtack()
 }
 
 function random(min, max) {
@@ -167,6 +224,33 @@ function extractAtacks(playerMonster) {
     }
   }
   btnsAtacks(atacks)
+  secuenciaAtack()
+}
+
+function extractType(playerMonster) {
+  for (let i = 0; i < monstermons.length; i++) {
+    if (playerMonster === monstermons[i].nombre) {
+      extractTypePlayer = monstermons[i].tipo
+    }
+  } 
+  return extractTypePlayer
+} 
+
+function typeAdvantage(playerType, enemyType) {
+  console.log('TypePlater', playerType, 'TypeEnemy', enemyType)
+  for (let i = 0; i < monstermons.length; i++) {
+    if (playerMonster === monstermons[i].nombre) {
+      if (playerType === enemyType ) {
+        return 
+      } else if(playerType === 'fire' && enemyType === 'ground'){
+        monstermons[i].ataques.unshift({ nombre:'Fuego 🔥', id:'btn-fire'})
+      } else if (playerType === 'water' && enemyType === 'fire'){
+        monstermons[i].ataques.unshift({ nombre:'Agua 💧', id:'btn-water'})
+      } else if (playerType === 'ground' && enemyType === 'water'){
+        monstermons[i].ataques.unshift({ nombre:'Tierra 🌱', id:'btn-land'})
+      } 
+    }
+  }
 }
 
 function btnsAtacks(atacks) {
@@ -185,13 +269,16 @@ function secuenciaAtack() {
     botton.addEventListener('click', (e) => {
       if (e.target.textContent === 'Fuego 🔥') { 
         playerAtack.push('Fuego 🔥')
-        botton.style.opacity = '0.5' 
+        botton.style.opacity = '0.5'
+        botton.disabled = true;
       } else if(e.target.textContent === 'Agua 💧') {
         playerAtack.push('Agua 💧')
-        botton.style.opacity = '0.5' 
+        botton.style.opacity = '0.5'
+        botton.disabled = true;
       } else {
         playerAtack.push('Tierra 🌱')
-        botton.style.opacity = '0.5' 
+        botton.style.opacity = '0.5'
+        botton.disabled = true;
       }
       console.log('PLAYER',playerAtack)
       enemyRandomAtack()
@@ -201,21 +288,13 @@ function secuenciaAtack() {
 
 function enemyRandomAtack() {
   let randomAtack = random(0, grupAtackMonster.length -1 );
-  // console.log('random', randomAtack)
-  // if (randomAtack == 0 || randomAtack == 1) {
-  //   enemyAtack.push("Fuego 🔥")
-  // } else if (randomAtack == 3  || randomAtack == 4) {
-  //   enemyAtack.push("Agua 💧") 
-  // } else {
-  //   enemyAtack.push("Tierra 🌱");
-  // }
   enemyAtack.push(grupAtackMonster[randomAtack].nombre)
   grupAtackMonster.splice(randomAtack, 1)
   console.log('ENMY',enemyAtack)
   console.log(grupAtackMonster)
   startFaight()
 }
-
+ 
 function startFaight() {
   if (playerAtack.length === 5) {
     combat()
@@ -226,7 +305,6 @@ function getAtackTwoPlayer(player, enemy) {
   getAtackPlayer = playerAtack[player]
   getAtackEnemy = enemyAtack[enemy]
 }
-
 
 function combat() {
   for (let index = 0; index < playerAtack.length; index++) {
@@ -265,21 +343,13 @@ function playerWin() {
   if (winsPlayer  === winsEnemy) {
     sectionrRestart.style.display = "block";
     createMessageGameOver("Oohh, es un EMPATE")
-    disableButton();
   } else if (winsPlayer  > winsEnemy) {
     sectionrRestart.style.display = "block";
     createMessageGameOver("Huurra!! 😎 haz ganado la partida 😎 FIN JUEGO")
-    disableButton();
   } else {
     sectionrRestart.style.display = "block";
     createMessageGameOver("Opps!! 😢 haz perdido la partida 😢 FIN JUEGO")
   }
-}
-
-function disableButton() {
-  btnFire.disabled = true;
-  btnWater.disabled = true;
-  btnLand.disabled = true;
 }
 
 function createMessage() { 
