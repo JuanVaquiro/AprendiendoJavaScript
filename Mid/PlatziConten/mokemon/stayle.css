@@ -113,6 +113,23 @@ button:disabled{
     align-items: center;
 }
 
+.container-imgs-players{
+    display: flex;
+    align-items: center;
+    gap: 58px;
+}
+
+#img-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#img-enemy{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #messages{
     padding: 20px;
     margin-top: 30px;
@@ -126,7 +143,19 @@ button:disabled{
     align-items: center;
 
 }
-#messages p{
+.msm-advantage{
+    font-size: 14px;
+    color: skyblue;
+}
+
+.result{
+    font-weight: bold;
+    color: rgba(57, 249, 23, 0.772);
+    font-size: 20px;
+    margin: 0px
+}
+
+#result{
     font-weight: bold;
     color: rgba(57, 249, 23, 0.772);
     font-size: 20px;

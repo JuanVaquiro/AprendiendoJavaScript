@@ -17,10 +17,15 @@ const msmEnemyAtack = document.getElementById("msm-enemy-atack")
 const containerCardMonster = document.getElementById("conter-card-id")
 
 const containerBtnAtacks = document.getElementById("container-btn-atacks")
+const msmAdvantage = document.getElementById("messages");
+const divImgPlayer = document.getElementById("img-player");
+const divImgEnemy = document.getElementById("img-enemy");
 
 let playerAtack = []
 let enemyAtack = []
 let grupAtackMonster
+let extractImgPlayer
+let extractImgEnemy
 let extractTypeEnemy
 let extractTypePlayer
 let monsterAtacks
@@ -144,7 +149,6 @@ function startGame() {
   // por cada uno de los elementos de(monstermons) haz algo
   // por cada monstermon que existe dentro el array[monstermons] haz algod
   monstermons.forEach(( monstermon ) => {
-    
     opcionMonstermon = `
     <input type="radio" name="monstermon" id=${monstermon.nombre}>
     <label class="monster-card-${monstermon.tipo}" for=${monstermon.nombre}>
@@ -197,6 +201,7 @@ function selectMonsterPlayer() {
     sectionMonsterkSelect.style.display = "flex";
   }
   extractType(playerMonster); 
+  extractImg(playerMonster)
   selectMonsterEnemy();
   extractAtacks(playerMonster);
 }
@@ -207,8 +212,11 @@ function selectMonsterEnemy() {
   enemySpan.innerHTML = monstermons[randomMonster].nombre
   grupAtackMonster = monstermons[randomMonster].ataques
   extractTypeEnemy = monstermons[randomMonster].tipo
-  console.log(grupAtackMonster)
-  typeAdvantage(extractTypePlayer, extractTypeEnemy)
+  extractImgEnemy = monstermons[randomMonster].img
+  // console.log(grupAtackMonster)
+  typeAdvantagePlayer(extractTypePlayer, extractTypeEnemy)
+  typeAdvantageEnemy(extractTypePlayer, extractTypeEnemy)
+  imgPlayers(extractImgPlayer, extractImgEnemy)
   // secuenciaAtack()
 }
 
@@ -236,7 +244,16 @@ function extractType(playerMonster) {
   return extractTypePlayer
 } 
 
-function typeAdvantage(playerType, enemyType) {
+function extractImg(playerMonster) {
+  for (let i = 0; i < monstermons.length; i++) {
+    if (playerMonster === monstermons[i].nombre) {
+      extractImgPlayer = monstermons[i].img
+    }
+  } 
+  return extractImgPlayer
+} 
+
+function typeAdvantagePlayer(playerType, enemyType) {
   console.log('TypePlater', playerType, 'TypeEnemy', enemyType)
   for (let i = 0; i < monstermons.length; i++) {
     if (playerMonster === monstermons[i].nombre) {
@@ -244,13 +261,54 @@ function typeAdvantage(playerType, enemyType) {
         return 
       } else if(playerType === 'fire' && enemyType === 'ground'){
         monstermons[i].ataques.unshift({ nombre:'Fuego 🔥', id:'btn-fire'})
+        messageAdvantage()
       } else if (playerType === 'water' && enemyType === 'fire'){
         monstermons[i].ataques.unshift({ nombre:'Agua 💧', id:'btn-water'})
+        messageAdvantage()
       } else if (playerType === 'ground' && enemyType === 'water'){
         monstermons[i].ataques.unshift({ nombre:'Tierra 🌱', id:'btn-land'})
-      } 
+        messageAdvantage()
+      } else {
+        let paragrahAdvantage = document.createElement("p")
+        paragrahAdvantage.style.color = 'red'
+        paragrahAdvantage.innerHTML = 'el enemigo obtiene ventaja de tipo monstermon +1 ataque'
+        msmAdvantage.appendChild(paragrahAdvantage)
+      }
     }
   }
+}
+
+function typeAdvantageEnemy(playerType, enemyType) {
+  if (playerType === enemyType ) {
+    return 
+  } else if(playerType === 'fire' && enemyType === 'water'){
+    grupAtackMonster.unshift({ nombre:'Agua 💧', id:'btn-water'})
+  } else if (playerType === 'water' && enemyType === 'ground'){
+    grupAtackMonster.unshift({ nombre:'Tierra 🌱', id:'btn-land'})
+  } else if (playerType === 'ground' && enemyType === 'fire'){
+    grupAtackMonster.unshift({ nombre:'Fuego 🔥', id:'btn-fire'})
+  }
+  console.log(grupAtackMonster)
+}
+
+function imgPlayers(extractImgPlayer, extractImgEnemy){
+  console.log(extractImgPlayer,  extractImgEnemy)
+  let imgPlayer = document.createElement("img")
+  let imgEnemy = document.createElement("img")
+  
+  imgPlayer.src = extractImgPlayer
+  imgEnemy.src = extractImgEnemy
+
+  divImgPlayer.appendChild(imgPlayer)
+  divImgEnemy.appendChild(imgEnemy)
+
+}
+
+function messageAdvantage() {
+  let paragrahAdvantage = document.createElement("p")
+  paragrahAdvantage.classList.add('msm-advantage')
+  paragrahAdvantage.innerHTML = 'Haz optenido ventaja de tipo monstermon +1 ataque'
+  msmAdvantage.appendChild(paragrahAdvantage)
 }
 
 function btnsAtacks(atacks) {
