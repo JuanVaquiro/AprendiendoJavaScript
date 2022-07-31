@@ -55,23 +55,35 @@ let conDraw = 0
 // canvas
 let lienzo = mapa.getContext('2d')
 let intervalo
-
+let mapaBackground = new Image()
+mapaBackground.src = 'https://images.wikidexcdn.net/mwuploads/wikidex/e/e8/latest/20080719092014/Ruta_7_RFVH.png'
+let objetoMonster
 
 class Monstermon{
-  constructor(nombre, img, vida, tipo) {
+  constructor(nombre, img, vida, tipo, x = 10, y = 10) {
     this.nombre = nombre
     this.img = img
     this.vida = vida
     this.tipo = tipo
     this.ataques = []
-    this.x = 20
-    this.y = 30
-    this.width = 80
-    this.height = 80
+    this.x = x
+    this.y = y
+    this.width = 64
+    this.height = 64
     this.mapaFoto = new Image()
     this.mapaFoto.src = img
     this.speedX = 0
     this.speedY = 0
+  }
+
+  pintarMonster(){
+    lienzo.drawImage(
+      this.mapaFoto,
+      this.x,
+      this.y,
+      this.width,
+      this.height,
+    )  
   }
 }
 
@@ -102,14 +114,31 @@ let canipo = new Monstermon(
 let ghatopo = new Monstermon(
   'Ghatopo', 
   'https://assets.pokemon.com/assets/cms2/img/pokedex/full/130.png', 
-  5 , 
-  'water'
+  5, 
+  'water',
 )
 let cuervoopo = new Monstermon(
   'Cuervoopo', 
   'https://assets.pokemon.com/assets/cms2/img/pokedex/full/123.png', 
   5 , 
-  'ground'
+  'ground',
+)
+
+let cuervoopoEnemigo = new Monstermon(
+  'Cuervoopo', 
+  '', 
+  5 , 
+  'ground',
+  180,
+  1,
+)
+let ardispoEnemigo = new Monstermon(
+  'Ardispo', 
+  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/252.png', 
+  5 , 
+  'ground',
+  190,
+  90,
 )
 
 //objeto litetario
@@ -193,10 +222,6 @@ function startGame() {
 function selectMonsterPlayer() {
   sectionMonsterkSelect.style.display = "none";
   // sectionAtackSelect.style.display = "flex";
-  // Canvas
-  sectionMapa.style.display = "flex"
-  intervalo = setInterval(picturImg, 50)
-  // Movimiento de teclado
 
   if (inpuntDrangpo.checked) {
     playerSpan.innerHTML = inpuntDrangpo.id;
@@ -225,6 +250,9 @@ function selectMonsterPlayer() {
   extractImg(playerMonster)
   selectMonsterEnemy();
   extractAtacks(playerMonster);
+    // Canvas
+  sectionMapa.style.display = "flex"
+  actionMapa()
 }
 
 function selectMonsterEnemy() {
@@ -452,36 +480,108 @@ function gameRestart() {
   location.reload();
 }
 
-function picturImg() {
+
+function picturImgCanvas() {
   // ghatopo.x = ghatopo.x + ghatopo.speedX
-  ghatopo.x = ghatopo.x + ghatopo.speedX
-  ghatopo.y = ghatopo.y + ghatopo.speedY
+  objetoMonster.x = objetoMonster.x + objetoMonster.speedX
+  objetoMonster.y = objetoMonster.y + objetoMonster.speedY
   lienzo.clearRect(0,0, mapa.width, mapa.height)
   lienzo.drawImage(
-    ghatopo.mapaFoto,
-    ghatopo.x,
-    ghatopo.y,
-    ghatopo.width,
-    ghatopo.height,
-  )  
+    mapaBackground,
+    0,
+    0,
+    mapa.width,
+    mapa.height,
+  )
+  objetoMonster.pintarMonster()
+  cuervoopoEnemigo.pintarMonster()
+  // ardispoEnemigo.pintarMonster()
+  if (objetoMonster.speedX !== 0 || objetoMonster.speedY !== 0 ) {
+    // reviarColision(ardispoEnemigo)
+    reviarColision(cuervoopoEnemigo)
+  }
 }
 
-function moverMontermonX() {
+function moverMontermonX_UP() {
   // ghatopo.x = ghatopo.x + 5 
-  // picturImg()
-  ghatopo.speedY = 5 
+  // picturImgCanvas()
+  objetoMonster.speedY = -5 
+}
+function moverMontermonX_DOWN() {
+  // ghatopo.x = ghatopo.x + 5 
+  objetoMonster.speedY = 5 
 }
 function moverMontermonY() {
-  // ghatopo.x = ghatopo.x + 5 
-  // picturImg()
-  ghatopo.speedY = -5
+  objetoMonster.speedX = 5
+}
+function moverMontermon_Y() {
+  objetoMonster.speedX = -5
+}
+function espeararMovimiento() { 
+  objetoMonster.speedX = 0
+  objetoMonster.speedY = 0
 }
 
-function espeararMovimiento() {
-  ghatopo.speedX = 0
-  ghatopo.speedY = 0
+function keyPress(e) {
+  // console.log(e.key) mostrar la tecla
+  switch (e.key) {
+    case 'w':
+      moverMontermonX_UP()
+      break;
+    case 's':
+      moverMontermonX_DOWN()
+      break;
+    case 'a':
+      moverMontermon_Y()
+      break;
+    case 'd':
+      moverMontermonY()
+      break;
+    default:
+      break;
+  }
 }
 
+function actionMapa() {
+  objetoMonster = obterterObjeto(playerMonster)
+  intervalo = setInterval(picturImgCanvas, 50)
+  window.addEventListener('keydown', keyPress)
+  window.addEventListener('keyup', espeararMovimiento)
+}
+
+function obterterObjeto() {
+  for (let i = 0; i < monstermons.length; i++) {
+    if (playerMonster === monstermons[i].nombre) {
+      return monstermons[i]
+    }
+  } 
+}
+
+function reviarColision(enemy) {
+  const upEnemy = enemy.y
+  const downEnemy = enemy.y + enemy.height
+  const rightEnemy = enemy.x + enemy.width
+  const leftEnemy = enemy.x
+
+  const upMonster = objetoMonster.y
+  const downMonster = objetoMonster.y + objetoMonster.height
+  const rightMonster = objetoMonster.x + objetoMonster.width
+  const lefttMonster = objetoMonster.x
+  
+  if( 
+    downMonster < upEnemy ||
+    upMonster > downEnemy ||
+    rightMonster < leftEnemy ||
+    lefttMonster > rightEnemy
+    
+    ){
+      return
+  }
+  espeararMovimiento()
+  sectionAtackSelect.style.display = "flex";
+  sectionMapa.style.display = "none"
+  
+}
 // el objeto global windows ecucha 'load'
 // indicaldo de que todo el contenido HTML ya CARGO
 window.addEventListener("load", startGame);
