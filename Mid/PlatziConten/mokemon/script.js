@@ -21,6 +21,10 @@ const msmAdvantage = document.getElementById("messages");
 const divImgPlayer = document.getElementById("img-player");
 const divImgEnemy = document.getElementById("img-enemy");
 
+// Canvas
+const sectionMapa = document.getElementById("mapa-gamer")
+const mapa = document.getElementById("mapa")
+
 let playerAtack = []
 let enemyAtack = []
 let grupAtackMonster
@@ -48,6 +52,10 @@ let getAtackEnemy
 let winsPlayer = 0
 let winsEnemy = 0
 let conDraw = 0
+// canvas
+let lienzo = mapa.getContext('2d')
+let intervalo
+
 
 class Monstermon{
   constructor(nombre, img, vida, tipo) {
@@ -56,6 +64,14 @@ class Monstermon{
     this.vida = vida
     this.tipo = tipo
     this.ataques = []
+    this.x = 20
+    this.y = 30
+    this.width = 80
+    this.height = 80
+    this.mapaFoto = new Image()
+    this.mapaFoto.src = img
+    this.speedX = 0
+    this.speedY = 0
   }
 }
 
@@ -145,6 +161,7 @@ monstermons.push(dragonpo, cocodripo, ardispo, canipo, ghatopo, cuervoopo )
 function startGame() {
   sectionAtackSelect.style.display = "none";
   sectionrRestart.style.display = "none";
+  sectionMapa.style.display = "none"
 
   // por cada uno de los elementos de(monstermons) haz algo
   // por cada monstermon que existe dentro el array[monstermons] haz algod
@@ -175,7 +192,11 @@ function startGame() {
 
 function selectMonsterPlayer() {
   sectionMonsterkSelect.style.display = "none";
-  sectionAtackSelect.style.display = "flex";
+  // sectionAtackSelect.style.display = "flex";
+  // Canvas
+  sectionMapa.style.display = "flex"
+  intervalo = setInterval(picturImg, 50)
+  // Movimiento de teclado
 
   if (inpuntDrangpo.checked) {
     playerSpan.innerHTML = inpuntDrangpo.id;
@@ -429,6 +450,36 @@ function createMessageGameOver(finalResult) {
 
 function gameRestart() {
   location.reload();
+}
+
+function picturImg() {
+  // ghatopo.x = ghatopo.x + ghatopo.speedX
+  ghatopo.x = ghatopo.x + ghatopo.speedX
+  ghatopo.y = ghatopo.y + ghatopo.speedY
+  lienzo.clearRect(0,0, mapa.width, mapa.height)
+  lienzo.drawImage(
+    ghatopo.mapaFoto,
+    ghatopo.x,
+    ghatopo.y,
+    ghatopo.width,
+    ghatopo.height,
+  )  
+}
+
+function moverMontermonX() {
+  // ghatopo.x = ghatopo.x + 5 
+  // picturImg()
+  ghatopo.speedY = 5 
+}
+function moverMontermonY() {
+  // ghatopo.x = ghatopo.x + 5 
+  // picturImg()
+  ghatopo.speedY = -5
+}
+
+function espeararMovimiento() {
+  ghatopo.speedX = 0
+  ghatopo.speedY = 0
 }
 
 // el objeto global windows ecucha 'load'

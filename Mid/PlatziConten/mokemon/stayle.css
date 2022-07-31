@@ -74,6 +74,17 @@ h1{
     font-size: 18px;
 }
 
+/* canvas */
+#mapa-gamer{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#mapa{
+    border: 2px solid skyblue;
+    width: 50%;
+}
+
 img{
     width: 160px;
     margin-right: -16px;
