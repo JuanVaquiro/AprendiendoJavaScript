@@ -25,6 +25,8 @@ const divImgEnemy = document.getElementById("img-enemy");
 const sectionMapa = document.getElementById("mapa-gamer")
 const mapa = document.getElementById("mapa")
 
+let playerId = null
+let mokeponesEnemigos = []
 let playerAtack = []
 let enemyAtack = []
 let grupAtackMonster
@@ -60,7 +62,8 @@ mapaBackground.src = 'https://images.wikidexcdn.net/mwuploads/wikidex/e/e8/lates
 let objetoMonster
 
 class Monstermon{
-  constructor(nombre, img, vida, tipo, x = 10, y = 10) {
+  constructor(nombre, img, vida, tipo, x = 10, y = 10, id = null) {
+    this.id = id
     this.nombre = nombre
     this.img = img
     this.vida = vida
@@ -122,23 +125,6 @@ let cuervoopo = new Monstermon(
   'https://assets.pokemon.com/assets/cms2/img/pokedex/full/123.png', 
   5 , 
   'ground',
-)
-
-let cuervoopoEnemigo = new Monstermon(
-  'Cuervoopo', 
-  '', 
-  5 , 
-  'ground',
-  180,
-  1,
-)
-let ardispoEnemigo = new Monstermon(
-  'Ardispo', 
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/252.png', 
-  5 , 
-  'ground',
-  190,
-  90,
 )
 
 //objeto litetario
@@ -209,14 +195,30 @@ function startGame() {
     containerCardMonster.innerHTML += opcionMonstermon 
 
     inpuntDrangpo = document.getElementById("Dragonpo");
-    inpuntCocodripo = document.getElementById("Cocodripo");
     inputArdispo = document.getElementById("Ardispo");
+    inpuntCocodripo = document.getElementById("Cocodripo");
     inpuntCanipo = document.getElementById("Canipo")
     inpuntGhatopo = document.getElementById("Ghatopo")
     inpuntCuervoopo = document.getElementById("Cuervoopo") 
   })
   btnPlayer.addEventListener("click", selectMonsterPlayer);
   btnRestart.addEventListener("click", gameRestart);
+
+  joinGame()
+}
+
+function joinGame() {
+  fetch('http://localhost:8080/unirse') 
+    .then((res) => { 
+      // console.log(res)
+      if(res.ok){
+        res.text()
+        .then((respuesta) => {
+           console.log(respuesta)
+           playerId = respuesta
+        })
+      }
+    }) 
 }
 
 function selectMonsterPlayer() {
@@ -246,13 +248,30 @@ function selectMonsterPlayer() {
     sectionAtackSelect.style.display = "none";
     sectionMonsterkSelect.style.display = "flex";
   }
+  // Enviar al Back
+  selectMonsterBack(playerMonster) 
+
   extractType(playerMonster); 
   extractImg(playerMonster)
   selectMonsterEnemy();
   extractAtacks(playerMonster);
-    // Canvas
+  // Canvas
   sectionMapa.style.display = "flex"
   actionMapa()
+}
+
+function selectMonsterBack(playerMonster) {
+  fetch(`http://localhost:8080/mokepon/${playerId}`,
+    {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        mokepon: playerMonster 
+      })
+    }
+  )
 }
 
 function selectMonsterEnemy() {
@@ -494,12 +513,52 @@ function picturImgCanvas() {
     mapa.height,
   )
   objetoMonster.pintarMonster()
-  cuervoopoEnemigo.pintarMonster()
+
+  enviarPosicion( objetoMonster.x, objetoMonster.y )
+
+  mokeponesEnemigos.forEach(function(mokepon) {
+    mokepon.pintarMonster()
+    reviarColision(mokepon)
+  })
+  // dragonpoEnemigo.pintarMonster()
   // ardispoEnemigo.pintarMonster()
-  if (objetoMonster.speedX !== 0 || objetoMonster.speedY !== 0 ) {
+  // if ( objetoMonster.speedX !== 0 || objetoMonster.speedY !== 0 ) {
     // reviarColision(ardispoEnemigo)
-    reviarColision(cuervoopoEnemigo)
-  }
+    // reviarColision(dragonpoEnemigo)
+  // }  
+}
+
+function enviarPosicion(x, y){
+  fetch(`http://localhost:8080/mokepon/${playerId}/posicion`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      x,
+      y,
+    }),
+  }).then(function (res) {
+    if (res.ok) {
+      res.json().then(function ({ enemys }) {
+        console.log(enemys);
+        mokeponesEnemigos = enemys.map(function (enemy) {
+          let mokeponEnemy = null;
+          const mokeponNombre = enemy.mokepon.nombre || "";
+          if (mokeponNombre === "Dragonpo") {
+            mokeponEnemy = new Monstermon("Dragonpo", "https://assets.pokemon.com/assets/cms2/img/pokedex/full/130.png", 5, "ground", 180, 1);
+          } else if (mokeponNombre === "Cocodripo") {
+            mokeponEnemy = new Monstermon("Cocodripo", "https://assets.pokemon.com/assets/cms2/img/pokedex/full/130.png", 5, "ground", 180, 1);
+          }
+          console.log(mokeponEnemy)
+          mokeponEnemy.x = enemy.x
+          mokeponEnemy.y = enemy.y
+
+          return mokeponEnemy
+        });
+      });
+    }
+  });
 }
 
 function moverMontermonX_UP() {
