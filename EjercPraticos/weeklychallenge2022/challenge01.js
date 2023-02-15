@@ -51,3 +51,6 @@ let arr = [1,2,15,4,3,22,12];
 let cosas = ['word', 'Word', '1 word', '2 Words', '3 Pepi'];
 cosas.sort(); // ['1 word', '2 Words', '3 Pepi',  'Word', 'word']
 // console.log(cosas)
+
+let abecedario = ['b', 'h', 'a', 'c', 'd']
+abecedario.sort() //  ['a', 'b', 'c', 'd', 'h']

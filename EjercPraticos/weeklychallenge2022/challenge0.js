@@ -54,3 +54,11 @@ function main2(){
 // main()
 // main1()
 // main2()
+
+// imprimir un elemento Random del arrys
+let array = [ 1,4,7,2,23,13]
+const randomItem = Math.floor(
+  Math.random() * array.length
+)
+
+console.log(array[randomItem])
