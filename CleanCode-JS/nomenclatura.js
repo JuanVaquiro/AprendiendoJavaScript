@@ -30,7 +30,6 @@ sendEmial()
 /* CLASES  con resposavilidades unicas */
 
 /* PRACTICA */
-
 const numbers = [1, 2, 3, 4, 5]
 const userNames = ['Cande', 'Alex', 'Mariana']
 const colorNames = ['red', 'green', 'blue']
