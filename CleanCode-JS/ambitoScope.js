@@ -15,4 +15,4 @@ mainApp()
   HOISTING 
   DECLARACION variables y funciones
   En el tiempo de copilacion movida hacia arriba de su ambito
-*/
+*/  
