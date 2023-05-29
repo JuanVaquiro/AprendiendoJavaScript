@@ -15,4 +15,3 @@ fuentes:
 - https://www.youtube.com/c/MouredevApps
 - https://www.youtube.com/c/CarlosAzaustre
 
-<!-- Consolas, 'Courier New', monospace  es el fontFamily defaul de VSC-->
