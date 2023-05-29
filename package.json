@@ -1,0 +1,27 @@
+{
+  "name": "aprendiendojavascript",
+  "version": "1.0.0",
+  "description": "MI Coleccion de apuntes, cursos y ejercicios: de cero a experto, aprendizaje de javascript-\r fuentes:\r ### Documentacion\r - https://es.javascript.info/\r - https://developer.mozilla.org/es/",
+  "main": "index.js",
+  "scripts": {
+    "callback": "node Asincronismo-JS/API.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuanVaquiro/AprendiendoJavaScript.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "JuanVaquiro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JuanVaquiro/AprendiendoJavaScript/issues"
+  },
+  "homepage": "https://github.com/JuanVaquiro/AprendiendoJavaScript#readme",
+  "dependencies": {
+    "node-fetch": "^3.3.1",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "type": "module"
+}
