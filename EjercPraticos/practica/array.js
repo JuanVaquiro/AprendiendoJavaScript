@@ -88,3 +88,26 @@ function unirObjeto(object1, object2) {
 }
 
 unirObjeto(objOne, objTwo)
+
+
+let arryProducts = [
+  {
+    name: "Product 1",
+    price: 1000,
+    stock: 10
+  },
+  {
+    name: "Product 2",
+    price: 2000,
+    stock: 20
+  }
+]
+
+function addNewAttr(array) {
+  return array.map(product => {
+    const taxes = Math.round(product.price * 0.19)
+    return { ...product, taxes: taxes }
+  })
+}
+
+console.log(addNewAttr(arryProducts))
